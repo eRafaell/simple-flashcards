@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-md navbar-light bg-warning">
   <div class="container">
-  <a class="navbar-brand" href="#"><img src="{% static 'img/logo.png' %}"  height="40" alt="Logo of simple-flashcards web page"></a>
+  <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}"  height="40" alt="Logo of simple-flashcards web page"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
           aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -28,14 +28,32 @@
       </li>
       </ul>
 
+      {% if user.is_authenticated %}
+
       <ul class="navbar-nav mt-2 mt-lg-0 ml-auto">
-      <li class="nav-item active ">
-        <a class="nav-link ml-auto" href="#">Login<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active ">
-        <a class="nav-link ml-auto" href="{% url 'register' %}">Register<span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
+        {% if user.is_superuser %}
+            <li class="nav-item active">
+              <a class="nav-link ml-auto" href="#">Users list<span class="sr-only">(current)</span></a>
+            </li>
+          {% endif %}
+        <li class="nav-item active ">
+          <a class="nav-link ml-auto" href="#">{{ user.username }}<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active ">
+          <a class="nav-link ml-auto" href="{% url 'logout' %}">Logout<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+
+      {% else %}
+      <ul class="navbar-nav mt-2 mt-lg-0 ml-auto">
+        <li class="nav-item active ">
+          <a class="nav-link ml-auto" href="{% url 'login' %}">Login<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active ">
+          <a class="nav-link ml-auto" href="{% url 'register' %}">Register<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      {% endif %}
   </div>
   </div>
 </nav>

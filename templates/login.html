@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block head_title %} Login site {% endblock head_title %}
+
+{% block content %}
+
+<div class="pb-3"><h2>Login form</h2></div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="text-danger pb-4">{{ message }} </div>
+        {% endfor %}
+    {% endif %}
+
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group pb-3">
+        <label for="username"><b>Username</b></label>
+        <input type="text" class="form-control border border-info" id="username" name="username">
+    </div>
+    <div class="form-group pb-3">
+        <label for="password"><b>Password</b></label>
+        <input type="password" class="form-control border border-info" id="password" name="password">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="text-muted">
+    <small>
+        Need an account? <a href="{% url 'register' %}">Register</a>
+    </small>
+</div>
+
+{% endblock %}

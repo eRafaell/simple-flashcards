@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block head_title %} Register site {% endblock head_title%}
+{% block head_title %} Register site {% endblock head_title %}
 
 {% block content %}
 
@@ -43,7 +43,7 @@
 
 <div class="text-muted">
     <small>
-        Do you already have account? <a href="#">Login</a>
+        Already have an account? <a href="{% url 'login' %}">Login</a>
     </small>
 </div>
 
