@@ -1,9 +1,9 @@
 {% load staticfiles %}
 <!--DOCTYPE HTML-->
 
-<html>
+<html lang="en">
 <head>
-    <title>{% block head_title %} Home site {% endblock head_title%}</title>
+    <title>{% block head_title %} {% endblock head_title%}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -13,13 +13,41 @@
 </head>
 
 <body>
-<header>
-    <h1>Django</h1>
-</header>
-<div class="container">
-        {% block content %}
-        {% endblock %}
+{% include 'navbar.html' %}
+
+
+<div class="container my-1">
+    <div class="row mb-2">
+    <form class="form-inline my-2 ml-auto">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search">
+      <button class="btn btn-outline-success my-1 my-sm-0" type="submit">Search</button>
+    </form>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-2 mx-auto border-right">
+            <div class="alert alert-light" role="alert" style="min-height: 100px;">
+            {% block sidebar %}
+
+            {% endblock sidebar %}
+        </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-10 mx-auto">
+            <div class="alert alert-light" role="alert" style="min-height: 800px;">
+            {% block content %}
+
+            {% endblock %}
+
+            </div>
+        </div>
+    </div>
+
+
 </div>
+
+
+{% include 'footer.html' %}
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
