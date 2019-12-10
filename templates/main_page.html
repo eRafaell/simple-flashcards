@@ -4,14 +4,15 @@
 
 {% block sidebar %} Sidebar {% endblock sidebar %}
 
+{% block message %}
+    {% if messages %}
+        {% for message in messages %}
+            <span class="alert alert-success my-2" role="alert">{{ message }}</span>
+        {% endfor %}
+    {% endif %}
+{% endblock message %}
+
+
 {% block content %}
-
-
-
-
-
-
-Content
-
-
+    Content
 {% endblock %}

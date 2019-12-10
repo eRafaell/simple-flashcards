@@ -13,12 +13,9 @@
 <div class="container my-1">
 
     <div class="row mb-2">
+        {% block message %}
 
-        {% if messages %}
-            {% for message in messages %}
-            <span class="alert alert-success my-2" role="alert">{{ message }}</span>
-            {% endfor %}
-        {% endif %}
+        {% endblock message %}
 
         <form class="form-inline my-2 ml-auto">
             <input class="form-control mr-sm-2" type="search" placeholder="Search">

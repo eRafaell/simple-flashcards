@@ -16,22 +16,35 @@ def register(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
 
-        if password1 == password2:
-            if User.objects.filter(username=username).exists():
-                messages.info(request, 'Username taken')
-                return redirect('/register')
-            elif User.objects.filter(email=email).exists():
-                messages.info(request, 'Email taken')
-                return redirect('/register')
-            else:
-                user = User.objects.create_user(username=username, password=password1, email=email,
-                                                first_name=first_name, last_name=last_name)
-                user.save()
-                messages.info(request, f'User {username} created')
-                return redirect('/')
-        else:
-            messages.info(request, 'Password not matching')
+        if len(password1) == 0:
+            messages.info(request, 'Password is required')
             return redirect('/register')
+        elif len(password1) < 3:
+            messages.info(request, 'Password is too short. It must have at least 3 characters')
+            return redirect('/register')
+        elif len(username) == 0:
+            messages.info(request, 'Username is required')
+            return redirect('/register')
+        elif len(username) < 3:
+            messages.info(request, 'Username is too short. It must have at least 3 characters')
+            return redirect('/register')
+        else:
+            if password1 == password2:
+                if User.objects.filter(username=username).exists():
+                    messages.info(request, 'Username taken')
+                    return redirect('/register')
+                elif User.objects.filter(email=email).exists():
+                    messages.info(request, 'Email taken')
+                    return redirect('/register')
+                else:
+                    user = User.objects.create_user(username=username, password=password1, email=email,
+                                                first_name=first_name, last_name=last_name)
+                    user.save()
+                    messages.info(request, f'User {username} created')
+                    return redirect('/')
+            else:
+                messages.info(request, 'Password not matching')
+                return redirect('/register')
 
     else:
         return render(request, "register.html")
