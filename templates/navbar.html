@@ -37,7 +37,7 @@
             </li>
           {% endif %}
         <li class="nav-item active ">
-          <a class="nav-link ml-auto" href="#">{{ user.username }}<span class="sr-only">(current)</span></a>
+          <a class="nav-link ml-auto" href="{% url 'profile' %}">{{ user.username }}<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active ">
           <a class="nav-link ml-auto" href="{% url 'logout' %}">Logout<span class="sr-only">(current)</span></a>
