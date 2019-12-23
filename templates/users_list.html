@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_superuser %}
+
+<table class="table">
+    <thead class="thead-dark w-auto h-auto align-middle text-center">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">User</th>
+        <th scope="col">Current Role</th>
+        <th scope="col">New Role</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for member in users_list %}
+    <form action="{% url 'change_status' member.pk %}" method="POST">
+
+        {% csrf_token %}
+        <tr>
+            <th scope="row" class="w-auto h-auto align-middle text-center">
+                {{ forloop.counter }}
+            </th>
+            <td class="w-auto h-auto align-middle text-center">
+                <a href="{% url 'profile' member.username %}">{{ member.username }}</a>
+            </td>
+
+            <td class="w-auto h-auto align-middle text-center">
+                {% if member.is_superuser %}
+                Administrator
+                {% elif member.is_staff%}
+                Moderator
+                {% else %}
+                User
+                {% endif %}
+            </td>
+
+            <td>
+                <select id="new_role" name="new_role" class="form-control w-auto h-auto">
+                    {% if member.is_superuser %}
+                    <option value="user_value">User</option>
+                    <option value="moderator_value">Moderator</option>
+                    <option value="administrator_value" selected>Administrator</option>
+                    {% elif member.is_staff%}
+                    <option value="user_value">User</option>
+                    <option value="moderator_value" selected>Moderator</option>
+                    <option value="administrator_value">Administrator</option>
+                    {% else %}
+                    <option value="user_value">User</option>
+                    <option value="moderator_value">Moderator</option>
+                    <option value="administrator_value">Administrator</option>
+                    {% endif %}
+                </select>
+            </td>
+
+            <td>
+                <input type="submit" value="Save" class="btn btn-primary w-auto h-auto">
+            </td>
+        </tr>
+    </form>
+{% endfor %}
+
+    </tbody>
+
+
+</table>
+
+
+{% else%}
+<h3>Only administrator can see this page</h3>
+<small>
+    Are you an administrator? <a href="{% url 'login' %}">Login</a>
+</small>
+{% endif %}
+
+{% endblock %}

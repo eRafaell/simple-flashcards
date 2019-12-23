@@ -13,12 +13,12 @@
         {{ profile_form|crispy }}
     </div>
 
-    <button type="submit" class="btn btn-primary btn-block">Update</button>
+    <button type="submit" class="btn btn-primary btn-block w-25 mx-auto">Update</button>
 </form>
 
 <hr>
-<div class="text-center">
-    <a class="small btn btn-secondary btn-block" href="{% url 'profile' %}">Back</a>
+<div class="text-center w-25 mx-auto">
+    <a class="small btn btn-secondary btn-block" href="{% url 'profile' user.username %}">Back</a>
 </div>
 
 {% endblock %}

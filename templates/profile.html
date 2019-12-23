@@ -25,7 +25,11 @@
                     <small class="text-muted">last login:<strong>{{ user.last_login }}</strong></small></p>
                 <p class="card-text my-3">
                     <small class="text-muted">account created:<strong>{{ user.date_joined }}</strong></small></p>
+
+                {% if user.is_authenticated %}
                 <a href="{% url 'profile-update' %}" class="btn btn-primary">Update Profile</a>
+                {% endif %}
+
             </div>
         </div>
     </div>

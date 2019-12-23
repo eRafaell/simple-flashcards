@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if decks %}
+        {% for deck in decks %}
+            <ul>
+                {{deck}}
+            </ul>
+        {% endfor %}
+    {% else %}
+        <h2>No decks, please contact an admin</h2>
+    {% endif %}
+{% endblock %}

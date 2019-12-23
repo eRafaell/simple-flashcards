@@ -11,7 +11,7 @@
   <div class="collapse navbar-collapse" id="navbarToggler">
     <ul class="navbar-nav mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'decks_name' %}">Decks <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
@@ -26,6 +26,12 @@
           <a class="dropdown-item" href="#">Separated link</a>
         </div>
       </li>
+      {% if user.is_superuser %}
+          <li class="nav-item active">
+        <a class="nav-link" href="{% url 'admin:index' %}">Admin Panel<span class="sr-only">(current)</span></a>
+      </li>
+      {% endif %}
+
       </ul>
 
       {% if user.is_authenticated %}
@@ -33,11 +39,11 @@
       <ul class="navbar-nav mt-2 mt-lg-0 ml-auto">
         {% if user.is_superuser %}
             <li class="nav-item active">
-              <a class="nav-link ml-auto" href="#">Users list<span class="sr-only">(current)</span></a>
+              <a class="nav-link ml-auto" href="{% url 'users_list' %}">Users list<span class="sr-only">(current)</span></a>
             </li>
           {% endif %}
         <li class="nav-item active ">
-          <a class="nav-link ml-auto" href="{% url 'profile' %}">{{ user.username }}<span class="sr-only">(current)</span></a>
+          <a class="nav-link ml-auto" href="{% url 'profile' user.username %}">{{ user.username }}<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active ">
           <a class="nav-link ml-auto" href="{% url 'logout' %}">Logout<span class="sr-only">(current)</span></a>

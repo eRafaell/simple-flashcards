@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'users.apps.UsersConfig',
     'crispy_forms',
+    'cards'
 ]
 
 REST_FRAMEWORK = {
