@@ -5,7 +5,7 @@ from django.utils import timezone
 
 class Deck(models.Model):
     title = models.CharField(max_length=64, null=False, blank=False)
-    description = models.CharField(max_length=128, null=False, blank=True)
+    description = models.TextField(max_length=128, null=False, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(User, default=None, blank=False, on_delete=models.CASCADE, null=True,
                                    related_name='deck_creator')
@@ -19,6 +19,7 @@ class Deck(models.Model):
         return str(num)
 
     get_num_of_cards.short_description = 'Card Count'
+
 
 class Card(models.Model):
     parent_deck = models.ForeignKey(Deck, on_delete=models.CASCADE)

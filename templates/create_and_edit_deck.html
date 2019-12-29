@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="pb-3"><h2>Create your Deck</h2></div>
+<form method="POST">
+    {% csrf_token %}
+    {{form|crispy}}
+
+    <div>
+        <button type="submit" class="btn btn-primary mr-3 mt-3">Submit Form</button>
+        {% if edit_mode %}
+        <a class="small btn btn-danger mr-3 mt-3" href="{% url 'delete_deck_name' deck_obj.id %}">Delete</a>
+        {% endif %}
+        <a class="small btn btn-secondary mt-3" href="{% url 'decks_name' %}">Back</a>
+    </div>
+
+</form>
+{% endblock %}

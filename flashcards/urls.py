@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from users.views import main_page_view, register, login, logout, profile, ProfileUpdate, users_list, change_user_status
-from cards.views import decks
+from cards.views import decks, create_deck, edit_deck, delete_deck, view_deck
 
 urlpatterns = [
     # users
@@ -19,6 +19,10 @@ urlpatterns = [
 
     # cards
     path('decks/', decks, name='decks_name'),
+    path('decks/create/', create_deck, name='create_deck_name'),
+    path('decks/edit/<int:deck_id>', edit_deck, name='edit_deck_name'),
+    path('decks/delete/<int:deck_id>', delete_deck, name='delete_deck_name'),
+    path('decks/view/<int:deck_id>', view_deck, name='view_deck_name'),
 
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api'))

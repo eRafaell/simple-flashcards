@@ -6,7 +6,6 @@ from django.contrib.auth.models import User, auth
 from django.urls import reverse_lazy
 from django.utils.deprecation import MiddlewareMixin
 from django.views.generic import TemplateView
-from users.models import Profile
 from .forms import UserUpdateForm, ProfileUpdateForm
 
 

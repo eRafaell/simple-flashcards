@@ -1,13 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="mb-5">
+    <a class="btn btn-primary" href="{% url 'create_deck_name' %}" role="button">Create a New Deck</a>
+</div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="text-danger pb-4">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
     {% if decks %}
         {% for deck in decks %}
-            <ul>
-                {{deck}}
-            </ul>
+    <ul>
+        {% if user.is_authenticated and user == deck.created_by %}
+            <a class="small btn btn-success" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>
+        <small>
+            <a href="{% url 'edit_deck_name' deck.id %}">Edit</a>
+        </small>
+        {% else %}
+            <a class="small btn btn-success" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>
+        {% endif %}
+    </ul>
         {% endfor %}
     {% else %}
-        <h2>No decks, please contact an admin</h2>
+
+    <h2>No decks found, please contact an admin</h2>
     {% endif %}
 {% endblock %}
