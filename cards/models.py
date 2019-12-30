@@ -22,9 +22,12 @@ class Deck(models.Model):
 
 
 class Card(models.Model):
-    parent_deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
+    parent_deck = models.ForeignKey(Deck, on_delete=models.CASCADE, null=True)
     front = models.TextField()
     back = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(User, default=None, blank=False, on_delete=models.CASCADE, null=True,
+                                   related_name='card_creator')
 
     def __str__(self):
         return self.front

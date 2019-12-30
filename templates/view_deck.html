@@ -1,8 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>{{deck_obj}}</h2>
-    <hr>
+
+<div class="d-flex border-bottom mb-4">
+    <div class="col-sm-9 mr-auto p-2"><h3>{{deck_obj}}</h3></div>
+    {% if user.is_authenticated and user == deck_obj.created_by or user.is_staff %}
+    <div class="col-sm-1 p-2">
+        <a class="btn btn-success" href="{% url 'edit_deck_name' deck_obj.id %}">Edit Deck</a>
+    </div>
+    <div class="col-sm-1 p-2">
+        <a class="btn btn-primary align-right" href="{% url 'create_card_name' deck_obj.id %}">Add Card</a>
+    </div>
+        {% if card_obj %}
+        <div class="col-sm-1 p-2">
+            <a class="btn btn-info" href="{% url 'edit_card_name' deck_obj.id card_obj.id %}">Edit Card</a>
+        </div>
+        {% endif %}
+
+
+    {% endif %}
+</div>
+
 
     {% if card_obj %}
         <p>{{card_obj.front}}</p>

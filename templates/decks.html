@@ -13,7 +13,7 @@
     {% if decks %}
         {% for deck in decks %}
     <ul>
-        {% if user.is_authenticated and user == deck.created_by %}
+        {% if user.is_authenticated and user == deck.created_by or user.is_staff %}
             <a class="small btn btn-success" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>
         <small>
             <a href="{% url 'edit_deck_name' deck.id %}">Edit</a>

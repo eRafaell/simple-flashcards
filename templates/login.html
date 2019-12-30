@@ -14,11 +14,11 @@
 
 <form action="{% url 'login' %}" method="POST">
     {% csrf_token %}
-    <div class="form-group pb-3">
+    <div class="form-group pb-3 w-50 p-3">
         <label for="username"><b>Username</b></label>
         <input type="text" class="form-control border border-info" id="username" name="username">
     </div>
-    <div class="form-group pb-3">
+    <div class="form-group pb-3 w-50 p-3">
         <label for="password"><b>Password</b></label>
         <input type="password" class="form-control border border-info" id="password" name="password">
     </div>
