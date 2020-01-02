@@ -6,9 +6,8 @@
     <div class="col-sm-9 mr-auto p-2">
         <h3>{{deck_obj}}</h3>
             <p><small>{{deck_obj.description}}</small></p>
-            {% if card_obj %}
+            {% if card_list %}
                 <small><a href="{% url 'profile' deck_obj.created_by %}">{{deck_obj.created_by}}</a></small> |
-                <small>created: {{deck_obj.created_date}}</small>
             {% endif %}
     </div>
 
@@ -25,23 +24,26 @@
             <a class="btn btn-info" href="{% url 'edit_card_name' deck_obj.id card_obj.id %}">Edit Card</a>
         </div>
         {% endif %}
+
+
     {% endif %}
-    <div class="col-sm-1 p-2">
-        <a class="btn btn-info" href="{% url 'view_cards_name' deck_obj.id %}">View Cards</a>
-    </div>
-
-
 </div>
 
-
-    {% if card_obj %}
+    {% if card_list %}
+        {% for card in cards %}
         <div class="border border-secondary card w-50 mb-2 offset-1">
             <div class="card-body">
-                <p class="card-text text-center">{{card_obj.front}}</p>
-                <p class="card-text text-center">{{card_obj.back}}</p>
+            <p class="card-text text-center">{{ card.card_one.front }}</p>
+            <p class="card-text text-center">{{ card.card_one.back }}</p>
+            {% if user.is_authenticated and user == deck_obj.created_by or user.is_staff %}
+            <a class="btn btn-outline-primary btn-sm" href="{% url 'edit_card_name' deck_obj.id card.card_one.id %}">
+                Edit Card</a>
+            {% endif %}
             </div>
         </div>
+        {% endfor %}
     {% else %}
+
         <p>No card found</p>
     {% endif %}
 

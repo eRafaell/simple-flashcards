@@ -73,12 +73,23 @@ def delete_deck(request, deck_id):
 def view_deck(request, deck_id):
     deck_obj = get_object_or_404(Deck, id=deck_id)
     card_list = deck_obj.card_set.all()
+
     card_obj = card_list.first()
-    print(deck_obj)
-    print(card_list)
-    print(card_obj)
+
     context = {'deck_obj': deck_obj, 'card_obj': card_obj}
     return render(request, 'view_deck.html', context)
+
+
+def view_cards(request, deck_id):
+    deck_obj = get_object_or_404(Deck, id=deck_id)
+    card_list = deck_obj.card_set.all()
+    all_cards = []
+    for card_one in card_list:
+        card_one_ = {'card_one': card_one}
+        all_cards.append(card_one_)
+
+    context = {'deck_obj': deck_obj, 'card_list': card_list, 'cards': all_cards}
+    return render(request, 'view_cards.html', context)
 
 
 def create_card(request, deck_id):

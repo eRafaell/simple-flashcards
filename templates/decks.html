@@ -12,14 +12,29 @@
 
     {% if decks %}
         {% for deck in decks %}
-    <ul>
+    <ul class="list-group">
         {% if user.is_authenticated and user == deck.created_by or user.is_staff %}
-            <a class="small btn btn-success" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>
-        <small>
-            <a href="{% url 'edit_deck_name' deck.id %}">Edit</a>
-        </small>
+         <div class="list-group-item d-flex justify-content-between align-items-center w-75 p-3">
+             <div>
+                <a class="btn btn-outline-success btn-sm" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>
+                <small><a href="{% url 'edit_deck_name' deck.id %}">Edit</a></small>
+             </div>
+
+            <span class="badge badge-primary badge-pill" >14</span>
+        </div>
+
+
+<!--            <a class="small btn btn-success" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>-->
+
+
         {% else %}
-            <a class="small btn btn-success" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>
+<!--            <a class="small btn btn-success" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>-->
+           <div class="list-group-item d-flex justify-content-between align-items-center w-75 p-3">
+             <div>
+                <a class="btn btn-outline-success btn-sm" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>
+             </div>
+            <span class="badge badge-primary badge-pill" >14</span>
+        </div>
         {% endif %}
     </ul>
         {% endfor %}

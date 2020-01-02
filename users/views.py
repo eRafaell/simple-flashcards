@@ -94,11 +94,12 @@ def profile(request, username):
     # Handling non authenticated user for obvious reasons
     if request.user.is_authenticated and request.user == user:
         editable = True
+    else:
+        context = locals()
+        return render(request, 'profile_other.html', context)
 
     context = locals()
     return render(request, 'profile.html', context)
-
-    # return render(request, 'profile.html')
 
 
 class ProfileUpdate(MiddlewareMixin, TemplateView):
@@ -132,7 +133,6 @@ class ProfileUpdate(MiddlewareMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
-
 
 
 @login_required(login_url='/login/')
