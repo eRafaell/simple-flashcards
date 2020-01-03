@@ -6,10 +6,10 @@
     <div class="col-sm-9 mr-auto p-2">
         <h3>{{deck_obj}}</h3>
             <p><small>{{deck_obj.description}}</small></p>
-            {% if card_obj %}
+
                 <small><a href="{% url 'profile' deck_obj.created_by %}">{{deck_obj.created_by}}</a></small> |
                 <small>created: {{deck_obj.created_date}}</small>
-            {% endif %}
+            
     </div>
 
 

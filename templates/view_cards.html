@@ -19,24 +19,19 @@
     <div class="col-sm-1 p-2">
         <a class="btn btn-primary align-right" href="{% url 'create_card_name' deck_obj.id %}">Add Card</a>
     </div>
-        {% if card_obj %}
-        <div class="col-sm-1 p-2">
-            <a class="btn btn-info" href="{% url 'edit_card_name' deck_obj.id card_obj.id %}">Edit Card</a>
-        </div>
-        {% endif %}
 
 
     {% endif %}
 </div>
 
     {% if card_list %}
-        {% for card in cards %}
+        {% for card in card_list %}
         <div class="border border-secondary card w-50 mb-2 offset-1">
             <div class="card-body">
-            <p class="card-text text-center">{{ card.card_one.front }}</p>
-            <p class="card-text text-center">{{ card.card_one.back }}</p>
+            <p class="card-text text-center">{{ card.front }}</p>
+            <p class="card-text text-center">{{ card.back }}</p>
             {% if user.is_authenticated and user == deck_obj.created_by or user.is_staff %}
-            <a class="btn btn-outline-primary btn-sm" href="{% url 'edit_card_name' deck_obj.id card.card_one.id %}">
+            <a class="btn btn-outline-primary btn-sm" href="{% url 'edit_card_name' deck_obj.id card.id %}">
                 Edit Card</a>
             {% endif %}
             </div>
