@@ -14,22 +14,7 @@ def decks(request):
 
 @login_required()
 def create_deck(request):
-    # if request.method == "POST":
-    #     title_input = request.POST.get('Form_title', None)
-    #     description_input = request.POST.get('Form_description', None)
-    #     if "Form_is_active" in request.POST:
-    #         is_active_input = True
-    #     else:
-    #         is_active_input = False
-    #
-    #     if len(title_input) < 2:
-    #         messages.info(request, 'Title is too short! It must have at least 2 chars')
-    #         return HttpResponseRedirect('/decks/create')
-    #     else:
-    #         new_deck = Deck(title=title_input, description=description_input, is_active=is_active_input)
-    #         new_deck.created_by = request.user
-    #         new_deck.save()
-    #         return HttpResponseRedirect('/decks/')
+
     if request.method == "POST":
         form = DeckForm(request.POST)
         if form.is_valid():
@@ -73,9 +58,7 @@ def delete_deck(request, deck_id):
 def view_deck(request, deck_id):
     deck_obj = get_object_or_404(Deck, id=deck_id)
     card_list = deck_obj.card_set.all()
-
     card_obj = card_list.first()
-
     context = {'deck_obj': deck_obj, 'card_obj': card_obj}
     return render(request, 'view_deck.html', context)
 
@@ -83,7 +66,6 @@ def view_deck(request, deck_id):
 def view_cards(request, deck_id):
     deck_obj = get_object_or_404(Deck, id=deck_id)
     card_list = deck_obj.card_set.all()
-
     context = {'deck_obj': deck_obj, 'card_list': card_list}
     return render(request, 'view_cards.html', context)
 

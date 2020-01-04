@@ -13,29 +13,17 @@
     {% if decks %}
         {% for deck in decks %}
     <ul class="list-group">
-        {% if user.is_authenticated and user == deck.created_by or user.is_staff %}
          <div class="list-group-item d-flex justify-content-between align-items-center w-75 p-3">
              <div>
                 <a class="btn btn-outline-success btn-sm" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>
+                 {% if user.is_authenticated and user == deck.created_by or user.is_staff %}
                 <small><a href="{% url 'edit_deck_name' deck.id %}">Edit</a></small>
+                 {% endif %}
              </div>
-
-            <span class="badge badge-primary badge-pill" >14</span>
+            <span class="badge badge-success badge-pill" title="number of cards in this deck">{{deck.card_set.count}}</span>
         </div>
 
 
-<!--            <a class="small btn btn-success" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>-->
-
-
-        {% else %}
-<!--            <a class="small btn btn-success" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>-->
-           <div class="list-group-item d-flex justify-content-between align-items-center w-75 p-3">
-             <div>
-                <a class="btn btn-outline-success btn-sm" href="{% url 'view_deck_name' deck.id %}">{{deck}}</a>
-             </div>
-            <span class="badge badge-primary badge-pill" >14</span>
-        </div>
-        {% endif %}
     </ul>
         {% endfor %}
     {% else %}
