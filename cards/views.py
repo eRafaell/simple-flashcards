@@ -59,6 +59,8 @@ def view_deck(request, deck_id):
     deck_obj = get_object_or_404(Deck, id=deck_id)
     card_list = deck_obj.card_set.all()
     card_obj = card_list.first()
+    if request.method == 'GET' and 'card' in request.GET:
+        card_obj = get_object_or_404(Card, id=request.GET['card'])
     context = {'deck_obj': deck_obj, 'card_obj': card_obj}
     return render(request, 'view_deck.html', context)
 

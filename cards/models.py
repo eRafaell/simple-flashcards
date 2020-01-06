@@ -31,3 +31,34 @@ class Card(models.Model):
 
     def __str__(self):
         return self.front
+
+    def has_previous_card(self):
+        '''
+        Returns true if the card is not the first card in the deck
+        '''
+        first_card_in_deck = self.parent_deck.card_set.first()
+        if self == first_card_in_deck:
+            return False
+        return True
+
+    def get_previous_card(self):
+        '''
+        Returns the previous card in the deck
+        '''
+        return self.parent_deck.card_set.filter(id__lt=self.id).last()
+
+    def has_next_card(self):
+        '''
+        Returns true if the card is not the last card in the deck
+        '''
+        last_card_in_deck = self.parent_deck.card_set.last()
+        if self == last_card_in_deck:
+            return False
+        return True
+
+    def get_next_card(self):
+        '''
+        Returns the next card in the deck
+        '''
+        return self.parent_deck.card_set.filter(id__gt=self.id).first()
+

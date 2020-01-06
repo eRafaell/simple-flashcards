@@ -11,7 +11,6 @@
             {% endif %}
     </div>
 
-
     {% if user.is_authenticated and user == deck_obj.created_by or user.is_staff %}
     <div class="col-sm-1 p-2">
         <a class="btn btn-success" href="{% url 'edit_deck_name' deck_obj.id %}">Edit Deck</a>
@@ -24,21 +23,27 @@
     {% endif %}
 </div>
 
-    {% if card_list %}
-        {% for card in card_list %}
-        <div class="border border-secondary card w-50 mb-2 offset-1">
-            <div class="card-body">
-            <p class="card-text text-center">{{ card.front }}</p>
-            <p class="card-text text-center">{{ card.back }}</p>
-            {% if user.is_authenticated and user == deck_obj.created_by or user.is_staff %}
-            <a class="btn btn-outline-primary btn-sm" href="{% url 'edit_card_name' deck_obj.id card.id %}">
-                Edit Card</a>
-            {% endif %}
+        {% if card_list %}
+            <div class="btn-lg mb-3 w-25">
+                <a class="btn btn-warning" href="{% url 'view_deck_name' deck_obj.id %}">Start Learning</a>
+            </div>
+    <div class="row">
+            {% for card in card_list %}
+        <div class="w-50">
+            <div class="col-md-6 border border-secondary card mb-3">
+                <div class="card-body">
+                <p class="card-text text-center">{{ card.front }}</p><hr>
+                <p class="card-text text-center">{{ card.back }}</p>
+                {% if user.is_authenticated and user == deck_obj.created_by or user.is_staff %}
+                <a class="btn btn-outline-primary btn-sm" href="{% url 'edit_card_name' deck_obj.id card.id %}">
+                    Edit Card</a>
+                {% endif %}
+                </div>
             </div>
         </div>
-        {% endfor %}
-    {% else %}
-
+            {% endfor %}
+        {% else %}
+    </div>
         <p>No card found</p>
     {% endif %}
 
