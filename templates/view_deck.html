@@ -30,32 +30,44 @@
 
 
     {% if card_obj %}
-<div class="maincontainer">
-        <div class="border border-secondary card w-50 mb-2 offset-1">
-            <div class="card-body">
-                <div class="card-front text-center">
-                    <p>Front</p><hr>
-                    <p class="card-text text-center">{{card_obj.front}}</p>
-                </div>
-                <div class="card-back text-center">
-                    <p>Back</p><hr>
-                    <p class="card-text text-center">{{card_obj.back}}</p>
-                </div>
-            </div>
+<!--<div class="maincontainer">-->
+<!--        <div class="border border-secondary card w-50 mb-2 offset-1">-->
+<!--            <div class="card-body">-->
+<!--                <div class="card-front text-center">-->
+<!--                    <p>Front</p><hr>-->
+<!--                    <p class="card-text text-center">{{card_obj.front}}</p>-->
+<!--                </div>-->
+<!--                <div class="card-back text-center">-->
+<!--                    <p>Back</p><hr>-->
+<!--                    <p class="card-text text-center">{{card_obj.back}}</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--</div>-->
+<div class="border border-secondary card w-50 mb-2 offset-1 h-25">
+    <div id="card-body">
+        <div class="front text-center my-auto">
+            {{card_obj.front}}
         </div>
+        <div class="back text-center">
+            {{card_obj.back}}
+        </div>
+    </div>
 </div>
 
 
 <nav aria-label="...">
-    <ul class="pagination pagination-sm w-50 mb-2 offset-1 mx-auto">
+    <ul class="pagination pagination-sm w-50 mb-2 mx-auto">
         {% if card_obj.has_previous_card %}
         <li class="page-item">
         <a class="page-link" href="{% url 'view_deck_name' deck_obj.id %}?card={{card_obj.get_previous_card.id}}">Previous</a>
         </li>
         {% endif %}
-        <li class="page-item active" aria-current="page">
-            <span class="page-link">1<span class="sr-only">(current)</span></span>
+        {% if deck_obj.get_num_of_cards %}
+        <li class="page-item" aria-current="page">
+        <a class="page-link" href="{% url 'view_deck_name' deck_obj.id %}?card={{deck_obj.get_random_card.id}}">Random<span class="sr-only">(current)</span></a>
         </li>
+        {% endif %}
         {% if card_obj.has_next_card %}
         <li class="page-item">
         <a class="page-link" href="{% url 'view_deck_name' deck_obj.id %}?card={{card_obj.get_next_card.id}}">Next</a>
@@ -64,10 +76,10 @@
     </ul>
 </nav>
 
-<script src="jquery.min.js"></script>
-<script src="justFlipIt.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
 <script>
-    $('.card1').justFlipIt();
+    $("#card-body").flip();
 </script>
 
     {% else %}

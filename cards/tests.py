@@ -69,4 +69,10 @@ class CardTestCase(TestCase):
         self.assertEqual(self.card2, self.card1.get_next_card())
 
 
-
+    def test_random_card(self):
+        '''
+        calls deck.get_random_card 100 times and ensures it returns valid card each time
+        Instead of the list could also be self.deck.card_set.all()
+        '''
+        for i in range(100):
+            self.assertIn(self.deck.get_random_card(), [self.card1, self.card2, self.card3])

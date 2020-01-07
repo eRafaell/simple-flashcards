@@ -1,6 +1,8 @@
+import random
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+
 
 
 class Deck(models.Model):
@@ -19,6 +21,15 @@ class Deck(models.Model):
         return str(num)
 
     get_num_of_cards.short_description = 'Card Count'
+
+    def get_random_card(self):
+        '''
+        Returns the random card from deck set
+        -1 because list started from 0
+        '''
+        random_number = random.randint(0, self.card_set.count() - 1)
+        random_card = self.card_set.all()[random_number]
+        return random_card
 
 
 class Card(models.Model):
