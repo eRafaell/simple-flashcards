@@ -2,7 +2,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from users.views import main_page_view, register, login, logout, profile, ProfileUpdate, users_list, change_user_status
+from users.views import main_page_view, register, login, logout, profile, ProfileUpdate, users_list, \
+    change_user_status, about
 from cards.views import decks, create_deck, edit_deck, delete_deck, view_deck, create_card, edit_card, delete_card, \
     view_cards
 
@@ -11,6 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_page_view, name='home'),
     path('register/', register, name='register'),
+    path('about/', about, name='about'),
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
     path('profile/<str:username>/', profile, name='profile'),

@@ -13,6 +13,10 @@ def main_page_view(request):
     return render(request, "main_page.html")
 
 
+def about(request):
+    return render(request, "about.html")
+
+
 def register(request):
     if request.method == "POST":
         username = request.POST['username']

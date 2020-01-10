@@ -10,7 +10,6 @@
         <small>created: {{deck_obj.created_date}}</small>
     </div>
 
-
     {% if user.is_authenticated and user == deck_obj.created_by or user.is_staff %}
     <div class="col-sm-1 p-2">
         <a class="btn btn-success" href="{% url 'edit_deck_name' deck_obj.id %}">Edit Deck</a>
@@ -24,37 +23,18 @@
         </div>
         {% endif %}
     {% endif %}
-
-
 </div>
-
 
     {% if card_obj %}
-<!--<div class="maincontainer">-->
-<!--        <div class="border border-secondary card w-50 mb-2 offset-1">-->
-<!--            <div class="card-body">-->
-<!--                <div class="card-front text-center">-->
-<!--                    <p>Front</p><hr>-->
-<!--                    <p class="card-text text-center">{{card_obj.front}}</p>-->
-<!--                </div>-->
-<!--                <div class="card-back text-center">-->
-<!--                    <p>Back</p><hr>-->
-<!--                    <p class="card-text text-center">{{card_obj.back}}</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--</div>-->
-<div class="border border-secondary card w-50 mb-2 offset-1 h-25">
+
     <div id="card-body">
-        <div class="front text-center my-auto">
-            {{card_obj.front}}
+        <div class="front border border-secondary card">
+            <p>{{card_obj.front}}</p>
         </div>
-        <div class="back text-center">
-            {{card_obj.back}}
+        <div class="back border border-secondary card">
+            <p>{{card_obj.back}}</p>
         </div>
     </div>
-</div>
-
 
 <nav aria-label="...">
     <ul class="pagination pagination-sm w-50 mb-2 mx-auto">
@@ -79,14 +59,16 @@
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
 <script>
-    $("#card-body").flip();
+    $("#card-body").flip({
+
+    });
 </script>
 
     {% else %}
         <p>No card found</p>
     {% endif %}
     <div class="button w-50">
-        <div class="col-sm-1 p-2 my-5">
+        <div class="col-sm-1 p-2">
             <a class="btn btn-secondary" href="{% url 'view_cards_name' deck_obj.id %}">Back</a>
         </div>
     </div>

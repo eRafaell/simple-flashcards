@@ -12,9 +12,16 @@ def decks(request):
     return render(request, 'decks.html', context)
 
 
+def decks_of_user(request, deck_id):
+    query_set = Deck.objects.order_by('-created_date').filter(is_active=True)
+    deck_obj = get_object_or_404(Deck, id=deck_id)
+
+    context = {'decks': query_set, 'deck_obj': deck_obj}
+    return render(request, 'base.html', context)
+
+
 @login_required()
 def create_deck(request):
-
     if request.method == "POST":
         form = DeckForm(request.POST)
         if form.is_valid():
