@@ -9,9 +9,10 @@
             <div class="text-danger pb-4">{{ message }}</div>
         {% endfor %}
     {% endif %}
-
+<div>
     {% if decks %}
         {% for deck in decks %}
+
     <ul class="list-group">
          <div class="list-group-item d-flex justify-content-between align-items-center w-75 p-3">
              <div>
@@ -22,10 +23,27 @@
              </div>
             <span class="badge badge-success badge-pill" title="number of cards in this deck">{{deck.card_set.count}}</span>
         </div>
-
-
     </ul>
+
         {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if decks.has_previous %}
+                <a href="?{{ page_request_var }}={{ decks.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ decks.number }} of {{ decks.paginator.num_pages }}.
+            </span>
+
+            {% if decks.has_next %}
+                <a href="?{{ page_request_var }}={{ decks.next_page_number }}">next</a>
+            {% endif %}
+            </span>
+    `</div>
+
+</div>
     {% else %}
 
     <h2>No decks found, please contact an admin</h2>

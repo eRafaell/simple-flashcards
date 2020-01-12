@@ -2,19 +2,57 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User, auth
 from django.urls import reverse_lazy
 from django.utils.deprecation import MiddlewareMixin
 from django.views.generic import TemplateView
 from .forms import UserUpdateForm, ProfileUpdateForm
+from cards.models import Deck
 
 
 def main_page_view(request):
-    return render(request, "main_page.html")
+    if request.user.is_authenticated:
+        logged_in_user_decks_list = Deck.objects.order_by('-created_by').filter(created_by=request.user)
+
+        paginator = Paginator(logged_in_user_decks_list, 1)  # Show 25 contacts per page
+        page_request_var = 'page'
+        page = request.GET.get(page_request_var)
+        try:
+            logged_in_user_decks = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            logged_in_user_decks = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            logged_in_user_decks = paginator.page(paginator.num_pages)
+
+        context = {'logged_in_user_decks': logged_in_user_decks, 'page_request_var': page_request_var}
+    else:
+        context = {}
+    return render(request, "main_page.html", context)
 
 
 def about(request):
-    return render(request, "about.html")
+    if request.user.is_authenticated:
+        logged_in_user_decks_list = Deck.objects.order_by('-created_by').filter(created_by=request.user)
+
+        paginator = Paginator(logged_in_user_decks_list, 1)  # Show 25 contacts per page
+        page_request_var = 'page'
+        page = request.GET.get(page_request_var)
+        try:
+            logged_in_user_decks = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            logged_in_user_decks = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            logged_in_user_decks = paginator.page(paginator.num_pages)
+
+        context = {'logged_in_user_decks': logged_in_user_decks, 'page_request_var': page_request_var}
+    else:
+        context = {}
+    return render(request, "about.html", context)
 
 
 def register(request):

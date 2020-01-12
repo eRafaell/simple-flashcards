@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 
@@ -7,17 +8,23 @@ from .models import Deck, Card
 
 
 def decks(request):
-    query_set = Deck.objects.order_by('-created_date').filter(is_active=True)
-    context = {'decks': query_set}
+    query_set_list = Deck.objects.order_by('-created_date').filter(is_active=True)
+    logged_in_user_decks = Deck.objects.order_by('-created_by').filter(created_by=request.user)
+
+    paginator = Paginator(query_set_list,  8)  # Show 25 contacts per page
+    page_request_var = 'page'
+    page = request.GET.get(page_request_var)
+    try:
+        query_set = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        query_set = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        query_set = paginator.page(paginator.num_pages)
+
+    context = {'decks': query_set, 'logged_in_user_decks': logged_in_user_decks, 'page_request_var': page_request_var}
     return render(request, 'decks.html', context)
-
-
-def decks_of_user(request, deck_id):
-    query_set = Deck.objects.order_by('-created_date').filter(is_active=True)
-    deck_obj = get_object_or_404(Deck, id=deck_id)
-
-    context = {'decks': query_set, 'deck_obj': deck_obj}
-    return render(request, 'base.html', context)
 
 
 @login_required()
@@ -75,7 +82,20 @@ def view_deck(request, deck_id):
 def view_cards(request, deck_id):
     deck_obj = get_object_or_404(Deck, id=deck_id)
     card_list = deck_obj.card_set.all()
-    context = {'deck_obj': deck_obj, 'card_list': card_list}
+
+    paginator = Paginator(card_list, 8)  # Show 25 contacts per page
+    page_request_var = 'page'
+    page = request.GET.get(page_request_var)
+    try:
+        query_set = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        query_set = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        query_set = paginator.page(paginator.num_pages)
+
+    context = {'deck_obj': deck_obj, 'card_list': query_set, 'page_request_var': page_request_var}
     return render(request, 'view_cards.html', context)
 
 

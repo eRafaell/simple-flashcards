@@ -29,10 +29,38 @@
     <div class="row">
         <div class="col-sm-12 col-lg-2 mx-auto border-right">
             <div class="alert alert-light" role="alert" style="min-height: 100px;">
+
                 {% block sidebar %}
 
+                    {% if logged_in_user_decks %}
+                            <strong>Your Decks: </strong>
+                        <div>
+                        {% for deck in logged_in_user_decks %}
+                            <div class="d-flex flex-column bd-highlight mb-3">
+                                <div class="p-2 bd-highlight border border-secondary">
+                                    <a href="{% url 'view_cards_name' deck.id %}"> {{ deck }} </a>
+                                </div>
+                            </div>
+                        {% endfor %}
 
+            <div class="pagination">
+                <span class="step-links">
+                    {% if logged_in_user_decks.has_previous %}
+                        <a href="?{{ page_request_var }}={{ logged_in_user_decks.previous_page_number }}">previous</a>
+                    {% endif %}
 
+                    <span class="current">
+                        Page {{ logged_in_user_decks.number }} of {{ logged_in_user_decks.paginator.num_pages }}.
+                    </span>
+
+                    {% if logged_in_user_decks.has_next %}
+                        <a href="?{{ page_request_var }}={{ logged_in_user_decks.next_page_number }}">next</a>
+                    {% endif %}
+                    </span>
+            `</div>
+
+                        </div>
+                    {% endif %}
 
                 {% endblock sidebar %}
 
