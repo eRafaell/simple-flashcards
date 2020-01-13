@@ -27,10 +27,11 @@
 
         {% endfor %}
 
+    {% if request.user.is_authenticated %}
     <div class="pagination">
         <span class="step-links">
             {% if decks.has_previous %}
-                <a href="?{{ page_request_var }}={{ decks.previous_page_number }}">previous</a>
+                <a href="?{{ page_request_variable }}={{ decks.previous_page_number }}">previous</a>
             {% endif %}
 
             <span class="current">
@@ -38,11 +39,11 @@
             </span>
 
             {% if decks.has_next %}
-                <a href="?{{ page_request_var }}={{ decks.next_page_number }}">next</a>
+                <a href="?{{ page_request_variable }}={{ decks.next_page_number }}">next</a>
             {% endif %}
             </span>
     `</div>
-
+    {% endif %}
 </div>
     {% else %}
 

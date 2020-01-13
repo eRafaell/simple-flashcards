@@ -12,5 +12,34 @@
 
 
 {% block content %}
-    content
+
+        {% if request.user.is_authenticated %}
+            <div>
+                <h3>Hello {{request.user.username}}! </h3>
+                <p>What would you like to do:</p>
+                <p>Look through decks:
+                    <a class="btn btn-primary" href="{% url 'decks_name' %}" role="button">Decks</a>
+                </p>
+
+                <p>Create a new deck:
+                    <a class="btn btn-primary" href="{% url 'create_deck_name' %}" role="button">New Deck</a>
+                </p>
+            </div>
+
+        {% else %}
+            <p>Check our decks:
+                <a class="btn btn-primary" href="{% url 'decks_name' %}" role="button">Decks</a>
+            </p>
+
+            <div class="text-muted">
+                Don't you have an account? <a href="{% url 'register' %}">Register</a>
+            </div>
+
+            <div class="text-muted">
+                Already have an account? <a href="{% url 'login' %}">Login</a>
+            </div>
+        {% endif %}
+
+
+
 {% endblock %}

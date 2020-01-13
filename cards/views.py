@@ -9,21 +9,41 @@ from .models import Deck, Card
 
 def decks(request):
     query_set_list = Deck.objects.order_by('-created_date').filter(is_active=True)
-    logged_in_user_decks = Deck.objects.order_by('-created_by').filter(created_by=request.user)
+    if request.user.is_authenticated:
+        logged_in_user_decks_list = Deck.objects.order_by('-created_by').filter(created_by=request.user)
 
-    paginator = Paginator(query_set_list,  8)  # Show 25 contacts per page
-    page_request_var = 'page'
-    page = request.GET.get(page_request_var)
-    try:
-        query_set = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        query_set = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        query_set = paginator.page(paginator.num_pages)
+        paginator = Paginator(query_set_list, 8)
+        page_request_variable = 'page2'
+        page = request.GET.get(page_request_variable)
+        try:
+            query_set = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            query_set = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            query_set = paginator.page(paginator.num_pages)
 
-    context = {'decks': query_set, 'logged_in_user_decks': logged_in_user_decks, 'page_request_var': page_request_var}
+        paginator = Paginator(logged_in_user_decks_list, 2)
+        page_request_var = 'page'
+        page = request.GET.get(page_request_var)
+        try:
+            logged_in_user_decks = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            logged_in_user_decks = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            logged_in_user_decks = paginator.page(paginator.num_pages)
+
+        context = {'decks': query_set,
+                   'logged_in_user_decks': logged_in_user_decks,
+                   'page_request_variable': page_request_variable,
+                   'page_request_var': page_request_var
+                   }
+    else:
+        context = {'decks': query_set_list}
+
     return render(request, 'decks.html', context)
 
 
@@ -83,7 +103,7 @@ def view_cards(request, deck_id):
     deck_obj = get_object_or_404(Deck, id=deck_id)
     card_list = deck_obj.card_set.all()
 
-    paginator = Paginator(card_list, 8)  # Show 25 contacts per page
+    paginator = Paginator(card_list, 8)
     page_request_var = 'page'
     page = request.GET.get(page_request_var)
     try:
