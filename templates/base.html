@@ -17,13 +17,6 @@
 
         {% endblock message %}
 
-        <form class="form-inline my-2 ml-auto" action="" method="POST">
-            <label for="search1">
-                <input class="form-control mr-sm-2" type="search" id="search1" placeholder="Search">
-            </label>
-            {% csrf_token %}
-            <button class="btn btn-outline-success my-1 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 
     <div class="row">
@@ -43,23 +36,28 @@
                             </div>
                         {% endfor %}
 
-            <div class="pagination">
-                <span class="step-links">
-                    {% if logged_in_user_decks.has_previous %}
-                        <a href="?{{ page_request_var }}={{ logged_in_user_decks.previous_page_number }}">previous</a>
-                    {% endif %}
+  <ul class="pagination">
+    {% if logged_in_user_decks.has_previous %}
+      <li><a href="?{{ page_request_var }}={{ logged_in_user_decks.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in logged_in_user_decks.paginator.page_range %}
+      {% if library.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?{{ page_request_var }}={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if logged_in_user_decks.has_next %}
+      <li><a href="?{{ page_request_var }}={{ logged_in_user_decks.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
 
-                    <span class="current">
-                        Page {{ logged_in_user_decks.number }} of {{ logged_in_user_decks.paginator.num_pages }}.
-                    </span>
 
-                    {% if logged_in_user_decks.has_next %}
-                        <a href="?{{ page_request_var }}={{ logged_in_user_decks.next_page_number }}">next</a>
-                    {% endif %}
-                    </span>
-            `</div>
-
-                        </div>
+        </div>
                     {% endif %}
 
                 {% endblock sidebar %}

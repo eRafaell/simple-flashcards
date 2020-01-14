@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 
 from .forms import DeckForm, CardForm
@@ -9,22 +10,33 @@ from .models import Deck, Card
 
 def decks(request):
     query_set_list = Deck.objects.order_by('-created_date').filter(is_active=True)
+    query = request.GET.get('q')
+    if query:
+        query_set_list = query_set_list.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(created_date__icontains=query) |
+            Q(created_by__username__icontains=query) |
+            Q(created_by__email__icontains=query)
+        ).distinct()
+
+    paginator = Paginator(query_set_list, 20)
+    page_request_variable = 'page2'
+    page = request.GET.get(page_request_variable)
+    try:
+        query_set = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        query_set = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        query_set = paginator.page(paginator.num_pages)
+
+    context = {'decks': query_set, 'page_request_variable': page_request_variable}
+
     if request.user.is_authenticated:
         logged_in_user_decks_list = Deck.objects.order_by('-created_by').filter(created_by=request.user)
-
-        paginator = Paginator(query_set_list, 8)
-        page_request_variable = 'page2'
-        page = request.GET.get(page_request_variable)
-        try:
-            query_set = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
-            query_set = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            query_set = paginator.page(paginator.num_pages)
-
-        paginator = Paginator(logged_in_user_decks_list, 2)
+        paginator = Paginator(logged_in_user_decks_list, 15)
         page_request_var = 'page'
         page = request.GET.get(page_request_var)
         try:
@@ -41,8 +53,6 @@ def decks(request):
                    'page_request_variable': page_request_variable,
                    'page_request_var': page_request_var
                    }
-    else:
-        context = {'decks': query_set_list}
 
     return render(request, 'decks.html', context)
 
@@ -103,7 +113,14 @@ def view_cards(request, deck_id):
     deck_obj = get_object_or_404(Deck, id=deck_id)
     card_list = deck_obj.card_set.all()
 
-    paginator = Paginator(card_list, 8)
+    query = request.GET.get('q')
+    if query:
+        card_list = card_list.filter(
+            Q(front__icontains=query) |
+            Q(back__icontains=query)
+        ).distinct()
+
+    paginator = Paginator(card_list, 20)
     page_request_var = 'page'
     page = request.GET.get(page_request_var)
     try:

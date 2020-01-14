@@ -24,9 +24,15 @@
 </div>
 
         {% if card_list %}
+        <div class="row">
             <div class="btn-lg mb-3 w-25">
                 <a class="btn btn-warning" href="{% url 'view_deck_name' deck_obj.id %}">Start Learning</a>
             </div>
+            <form method="GET" class="ml-auto" action="">
+            <input type="text" name="q" class="pb-1" placeholder="Search card" value="{{ request.GET.q }}"/>
+            <input type="submit" class="btn btn-outline-success" value="Search"/>
+        </form>
+        </div>
 <div>
     <div class="row">
             {% for card in card_list %}
@@ -45,21 +51,21 @@
             {% endfor %}
     </div>
 
-    <div class="pagination">
-        <span class="step-links">
-            {% if card_list.has_previous %}
-                <a href="?{{ page_request_var }}={{ card_list.previous_page_number }}">previous</a>
-            {% endif %}
+<div class="pagination">
+    <span class="step-links">
+    {% if card_list.has_previous %}
+        <a href="?{{ page_request_var }}={{ card_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+    {% endif %}
 
-            <span class="current">
-                Page {{ card_list.number }} of {{ card_list.paginator.num_pages }}.
-            </span>
+    <span class="current">
+        Page {{ card_list.number }} of {{ card_list.paginator.num_pages }}.
+    </span>
 
-            {% if card_list.has_next %}
-                <a href="?{{ page_request_var }}={{ card_list.next_page_number }}">next</a>
-            {% endif %}
-            </span>
-    `</div>
+    {% if card_list.has_next %}
+        <a href="?{{ page_request_var }}={{ card_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+    {% endif %}
+    </span>
+`</div>
 
         {% else %}
 </div>

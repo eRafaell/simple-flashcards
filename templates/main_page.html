@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
-{% block head_title %} Home site {% endblock head_title%}
+{% block title %}  {% endblock %}
+
 
 {% block message %}
     {% if messages %}
@@ -29,6 +30,9 @@
         {% else %}
             <p>Check our decks:
                 <a class="btn btn-primary" href="{% url 'decks_name' %}" role="button">Decks</a>
+            </p>
+            <p>
+                If you want to create your set of flashcards, register or login
             </p>
 
             <div class="text-muted">

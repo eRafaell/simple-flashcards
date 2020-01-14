@@ -15,7 +15,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics', null=True, blank=True)
+    image = models.ImageField(default='default.png', upload_to='profile_pics', null=True, blank=True)
     about_user = models.TextField(max_length=600, blank=True)
 
     def __str__(self):

@@ -15,7 +15,7 @@ def main_page_view(request):
     if request.user.is_authenticated:
         logged_in_user_decks_list = Deck.objects.order_by('-created_by').filter(created_by=request.user)
 
-        paginator = Paginator(logged_in_user_decks_list, 1)  # Show 25 contacts per page
+        paginator = Paginator(logged_in_user_decks_list, 15)  # Show 25 contacts per page
         page_request_var = 'page'
         page = request.GET.get(page_request_var)
         try:
@@ -37,7 +37,7 @@ def about(request):
     if request.user.is_authenticated:
         logged_in_user_decks_list = Deck.objects.order_by('-created_by').filter(created_by=request.user)
 
-        paginator = Paginator(logged_in_user_decks_list, 1)  # Show 25 contacts per page
+        paginator = Paginator(logged_in_user_decks_list, 15)  # Show 25 contacts per page
         page_request_var = 'page'
         page = request.GET.get(page_request_var)
         try:

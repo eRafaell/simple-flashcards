@@ -1,14 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="mb-5">
-    <a class="btn btn-primary" href="{% url 'create_deck_name' %}" role="button">Create a New Deck</a>
-</div>
+
+
+    <div class="row">
+        {% if user.is_authenticated %}
+        <div class="mb-5">
+            <a class="btn btn-primary" href="{% url 'create_deck_name' %}" role="button">Create a New Deck</a>
+        </div>
+        {% endif %}
+        <form method="GET" class="ml-auto" action="">
+            <input type="text" name="q" class="pb-1" placeholder="Search deck" value="{{ request.GET.q }}"/>
+            <input type="submit" class="btn btn-outline-success" value="Search"/>
+        </form>
+    </div>
+
+
+
     {% if messages %}
         {% for message in messages %}
             <div class="text-danger pb-4">{{ message }}</div>
         {% endfor %}
     {% endif %}
+
+
+
 <div>
     {% if decks %}
         {% for deck in decks %}
@@ -27,11 +43,12 @@
 
         {% endfor %}
 
-    {% if request.user.is_authenticated %}
+<!--&q={{ request.GET.q }}-->
+
     <div class="pagination">
         <span class="step-links">
             {% if decks.has_previous %}
-                <a href="?{{ page_request_variable }}={{ decks.previous_page_number }}">previous</a>
+                <a href="?{{ page_request_variable }}={{ decks.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
             {% endif %}
 
             <span class="current">
@@ -39,11 +56,11 @@
             </span>
 
             {% if decks.has_next %}
-                <a href="?{{ page_request_variable }}={{ decks.next_page_number }}">next</a>
+                <a href="?{{ page_request_variable }}={{ decks.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
             {% endif %}
             </span>
     `</div>
-    {% endif %}
+
 </div>
     {% else %}
 
