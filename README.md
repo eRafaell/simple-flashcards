@@ -50,6 +50,7 @@ This will create env directory, which is the name of virtual environment, if it 
 ##### Virtual environment activation
 
 After created a virtual environment, you may activate it:
+
 On Windows, run:
 ```sh
 env\Scripts\activate.bat
