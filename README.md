@@ -56,7 +56,7 @@ env\Scripts\activate.bat
 ```
 On Unix or MacOS, run:
 ```sh
-source tutorial-env/bin/activate
+source env/bin/activate
 ```
 
 ##### Modules installation
