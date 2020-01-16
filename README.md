@@ -24,19 +24,22 @@ Here is a list of its main features:
 
 
 ### Installation
-###### Clone repository
+
+##### Clone repository
 
 To run the app yourself, you will need to clone the repository, decide upon a directory where you want to place it and in terminal run the following command:
 ```sh
 git clone https://github.com/eRafaell/simple-flashcards.git
 ```
-###### Virtual environment installation
+
+##### Virtual environment installation
 
 Next you should create virtual environment. Virtualenv is a tool used to create an isolated Python environment. The virtualenv package is required to create virtual environments. You can install it with pip:
 ```sh
 pip install virtualenv
 ```
-###### Virtual environment creation
+
+##### Virtual environment creation
 
 To create a virtual environment, decide upon a directory where you have the project, and run the venv module as a script with the directory path:
 ```sh
@@ -44,7 +47,7 @@ python -m venv env
 ```
 This will create env directory, which is the name of virtual environment, if it does not exist, and also create directories inside it.
 
-###### Virtual environment activation
+##### Virtual environment activation
 
 After created a virtual environment, you may activate it:
 On Windows, run:
@@ -56,14 +59,14 @@ On Unix or MacOS, run:
 source tutorial-env/bin/activate
 ```
 
-###### Modules installation
+##### Modules installation
 
 Next you can install all required modules:
 ```sh
 pip install -r requirements.txt
 ```
 
-###### Save changes in database
+##### Save changes in database
 
 To make changes into your database schema (adding a field, deleting a model, etc.) create initial migrations for each and every app
 ```sh
@@ -74,7 +77,7 @@ and to apply the change to your data:
 python manage.py migrate
 ```
 
-###### Create an administrator
+##### Create an administrator
 
 Next you need to create a user who can login to the admin site:
 ```sh
@@ -84,7 +87,7 @@ Then you have to enter your desired username, optional email and password
 
 And finally you can start your local server
 
-###### Run server
+##### Run server
 
 ```sh
 python manage.py runserver
