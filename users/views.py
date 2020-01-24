@@ -161,7 +161,8 @@ class ProfileUpdate(MiddlewareMixin, TemplateView):
                 user_form.save()
                 profile_form.save()
                 messages.info(request, 'Your profile was successfully updated!')
-                return HttpResponseRedirect(reverse_lazy('profile/'))
+                # return HttpResponseRedirect(reverse_lazy('profile/'))
+                return redirect('/')
         else:
             user_form = UserUpdateForm(instance=request.user)
             profile_form = ProfileUpdateForm(instance=request.user.profile)
@@ -180,25 +181,6 @@ class ProfileUpdate(MiddlewareMixin, TemplateView):
 @login_required(login_url='/login/')
 def users_list(request):
     users_list = User.objects.all()
-
-    # data = request.POST
-    # search_by = data.get('search_by')
-    # search_value = data.get('search')
-    # if search_by == 'user':
-    #     all = []
-    #     for user in users_list:
-    #         if search_value.lower() in str(user).lower():
-    #             all.append(user)
-    #     users_list = all
-    #
-    # elif search_by == 'role':
-    #     if search_value.lower() in "administrator":
-    #         users_list = users_list.filter(is_superuser=True)
-    #     elif search_value.lower() in "moderator":
-    #         users_list = users_list.filter(is_staff=True, is_superuser=False)
-    #     elif search_value.lower() in "użytkownik" or search_value.lower() in "uzytkownik":
-    #         users_list = users_list.filter(is_staff=False, is_superuser=False)
-
     return render(request, 'users_list.html', {'users_list': users_list})
 
 

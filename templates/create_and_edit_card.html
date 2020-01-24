@@ -18,11 +18,14 @@
     {{form|crispy}}
 
     <div>
-        <button type="submit" class="btn btn-primary mr-3 mt-3">Submit Form</button>
+        <button type="submit" class="btn btn-primary mr-3 mt-3" name="save1">Save and back</button>
+        {% if create_mode %}
+        <button type="submit" class="btn btn-primary mr-3 mt-3" name="save2">Save and create next card</button>
+        {% endif %}
         {% if edit_mode %}
         <a class="small btn btn-danger mr-3 mt-3" href="{% url 'delete_card_name' card_obj.id %}">Delete</a>
         {% endif %}
-        <a class="small btn btn-secondary mt-3" href="{% url 'view_deck_name' deck_obj.id %}">Back</a>
+        <a class="small btn btn-secondary mt-3" href="{% url 'view_cards_name' deck_obj.id %}">Back</a>
     </div>
 
 </form>

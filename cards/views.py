@@ -146,10 +146,13 @@ def create_card(request, deck_id):
             instance.parent_deck = Deck.objects.get(id=deck_id)
             instance.save()
             messages.info(request, f'New card in "{Deck.objects.get(id=deck_id)}" was created')
-            return HttpResponseRedirect('/decks/')
+            if 'save1' in request.POST:
+                return HttpResponseRedirect(f'/deck/view_cards/{deck_id}')
+            elif 'save2' in request.POST:
+                return HttpResponseRedirect(f'/cards/create/{deck_id}')
     else:
         form = CardForm()
-    context = {'form': form, 'deck_obj': deck_obj}
+    context = {'form': form, 'create_mode': True, 'deck_obj': deck_obj}
     return render(request, 'create_and_edit_card.html', context)
 
 

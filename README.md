@@ -21,6 +21,7 @@ Here is a list of its main features:
 - Bootstrap 4
 - jQuery
 - HTML
+- AWS S3
 
 
 ### Installation
@@ -29,21 +30,21 @@ Here is a list of its main features:
 
 To run the app yourself, you will need to clone the repository, decide upon a directory where you want to place it and in terminal run the following command:
 ```sh
-git clone https://github.com/eRafaell/simple-flashcards.git
+$ git clone https://github.com/eRafaell/simple-flashcards.git
 ```
 
 ##### Virtual environment installation
 
 Next you should create virtual environment. Virtualenv is a tool used to create an isolated Python environment. The virtualenv package is required to create virtual environments. You can install it with pip:
 ```sh
-pip install virtualenv
+$ pip install virtualenv
 ```
 
 ##### Virtual environment creation
 
 To create a virtual environment, decide upon a directory where you have the project, and run the venv module as a script with the directory path:
 ```sh
-python -m venv env
+$ python -m venv env
 ```
 This will create env directory, which is the name of virtual environment, if it does not exist, and also create directories inside it.
 
@@ -53,36 +54,39 @@ After created a virtual environment, you may activate it:
 
 On Windows, run:
 ```sh
-env\Scripts\activate.bat
+$ env\Scripts\activate.bat
 ```
 On Unix or MacOS, run:
 ```sh
-source env/bin/activate
+$ source env/bin/activate
 ```
 
 ##### Modules installation
 
 Next you can install all required modules:
 ```sh
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ##### Save changes in database
 
 To make changes into your database schema (adding a field, deleting a model, etc.) create initial migrations for each and every app
 ```sh
-python manage.py makemigrations 
+$ python manage.py makemigrations 
 ```
 and to apply the change to your data:
 ```sh
-python manage.py migrate
+$ python manage.py migrate
 ```
+
+##### Create a media folder
+In the folder flashcards create a subfolder with name media and paste into that subfolder some picture called default.png as the default avatar
 
 ##### Create an administrator
 
 Next you need to create a user who can login to the admin site:
 ```sh
-python manage.py createsuperuser
+$ python manage.py createsuperuser
 ```
 Then you have to enter your desired username, optional email and password
 
@@ -91,7 +95,7 @@ And finally you can start your local server
 ##### Run server
 
 ```sh
-python manage.py runserver
+$ python manage.py runserver
 ```
 now you can browse the website locally at http://localhost:8000/ or http://127.0.0.1:8000
 

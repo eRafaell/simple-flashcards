@@ -29,7 +29,7 @@ urlpatterns = [
     path('cards/create/<int:deck_id>', create_card, name='create_card_name'),
     path('cards/edit/<int:deck_id>/<int:card_id>', edit_card, name='edit_card_name'),
     path('cards/delete/<int:card_id>', delete_card, name='delete_card_name'),
-path('deck/view_cards/<int:deck_id>', view_cards, name='view_cards_name'),
+    path('deck/view_cards/<int:deck_id>', view_cards, name='view_cards_name'),
 
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api'))
