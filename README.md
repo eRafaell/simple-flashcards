@@ -80,7 +80,7 @@ $ python manage.py migrate
 ```
 
 ##### Create a media folder
-In the folder flashcards create a subfolder with name media and paste into that subfolder some picture called default.png as the default avatar
+In the main folder flashcards create a subfolder with name media (it should be at the same level as manage.py file) and paste into that subfolder some picture called default.png as the default avatar
 
 ##### Create an administrator
 
