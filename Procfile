@@ -1,1 +1,1 @@
-web: gunicorn simple-flashcards.wsgi
+web: gunicorn flashcards.wsgi
