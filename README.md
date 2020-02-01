@@ -2,6 +2,9 @@
 ### Description
 This is a simple flashcards app to help you learn languages, prepare for exams, etc. The unlogged user can show all decks and learn their flashcards but only logged in user can manage their decks and cards.
 
+You can find this website on heroku server:
+https://simple-flashcards.herokuapp.com/
+
 ### Features
 Here is a list of its main features:
 - Register and login mode

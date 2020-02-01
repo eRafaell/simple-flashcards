@@ -36,8 +36,7 @@
 <div>
     <div class="row">
             {% for card in card_list %}
-        <div class="w-50">
-            <div class="col-md-6 border border-secondary card mb-3">
+            <div class="col-md-5 border border-secondary card mb-3 mx-3">
                 <div class="card-body">
                 <p class="card-text text-center">{{ card.front }}</p><hr>
                 <p class="card-text text-center">{{ card.back }}</p>
@@ -47,7 +46,6 @@
                 {% endif %}
                 </div>
             </div>
-        </div>
             {% endfor %}
     </div>
 

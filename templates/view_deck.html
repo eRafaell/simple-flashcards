@@ -25,9 +25,10 @@
     {% endif %}
 </div>
 
+
     {% if card_obj %}
 
-    <div id="card-body">
+    <div id="card-body" class="col-md-8 pull-left">
         <div class="front border border-secondary card">
             <p>{{card_obj.front}}</p>
         </div>
@@ -36,8 +37,9 @@
         </div>
     </div>
 
+
 <nav aria-label="...">
-    <ul class="pagination pagination-sm w-50 mb-2 mx-auto">
+    <ul class="pagination pagination-sm w-50 mb-2">
         {% if card_obj.has_previous_card %}
         <li class="page-item">
         <a class="page-link" href="{% url 'view_deck_name' deck_obj.id %}?card={{card_obj.get_previous_card.id}}">Previous</a>
