@@ -3,24 +3,26 @@
 {% block content %}
 
 <div class="d-flex border-bottom mb-4">
-    <div class="col-sm-9 mr-auto p-2">
-        <h3>{{deck_obj}}</h3>
-            <p><small>{{deck_obj.description}}</small></p>
-            {% if card_list %}
-                <small><a href="{% url 'profile' deck_obj.created_by %}">{{deck_obj.created_by}}</a></small> |
-            {% endif %}
-    </div>
+    <div class="row">
+        <div class="col-sm-7 mr-auto p-2">
+            <h3>{{deck_obj}}</h3>
+                <p><small>{{deck_obj.description}}</small></p>
+                {% if card_list %}
+                    <small><a href="{% url 'profile' deck_obj.created_by %}">{{deck_obj.created_by}}</a></small> |
+                {% endif %}
+        </div>
 
-    {% if user.is_authenticated and user == deck_obj.created_by or user.is_staff %}
-    <div class="col-sm-1 p-2">
-        <a class="btn btn-success" href="{% url 'edit_deck_name' deck_obj.id %}">Edit Deck</a>
-    </div>
-    <div class="col-sm-1 p-2">
-        <a class="btn btn-primary align-right" href="{% url 'create_card_name' deck_obj.id %}">Add Card</a>
-    </div>
+        {% if user.is_authenticated and user == deck_obj.created_by or user.is_staff %}
+        <div class="col-sm-1 p-2 mx-4">
+            <a class="btn btn-success" href="{% url 'edit_deck_name' deck_obj.id %}">Edit Deck</a>
+        </div>
+        <div class="col-sm-1 p-2 mx-4">
+            <a class="btn btn-primary align-right" href="{% url 'create_card_name' deck_obj.id %}">Add Card</a>
+        </div>
 
+        {% endif %}
 
-    {% endif %}
+    </div>
 </div>
 
         {% if card_list %}
@@ -31,7 +33,7 @@
             <form method="GET" class="ml-auto" action="">
             <input type="text" name="q" class="pb-1" placeholder="Search card" value="{{ request.GET.q }}"/>
             <input type="submit" class="btn btn-outline-success" value="Search"/>
-        </form>
+            </form>
         </div>
 <div>
     <div class="row">

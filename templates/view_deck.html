@@ -3,32 +3,34 @@
 {% block content %}
 
 <div class="d-flex border-bottom mb-4">
-    <div class="col-sm-9 mr-auto p-2">
-        <h3>{{deck_obj}}</h3>
-        <p><small>{{deck_obj.description}}</small></p>
-        <small><a href="{% url 'profile' deck_obj.created_by %}">{{deck_obj.created_by}}</a></small> |
-        <small>created: {{deck_obj.created_date}}</small>
-    </div>
+    <div class="row">
+        <div class="col-sm-7 mr-auto p-2">
+            <h3>{{deck_obj}}</h3>
+            <p><small>{{deck_obj.description}}</small></p>
+            <small><a href="{% url 'profile' deck_obj.created_by %}">{{deck_obj.created_by}}</a></small> |
+            <small>created: {{deck_obj.created_date}}</small>
+        </div>
 
     {% if user.is_authenticated and user == deck_obj.created_by or user.is_staff %}
-    <div class="col-sm-1 p-2">
-        <a class="btn btn-success" href="{% url 'edit_deck_name' deck_obj.id %}">Edit Deck</a>
-    </div>
-    <div class="col-sm-1 p-2">
-        <a class="btn btn-primary align-right" href="{% url 'create_card_name' deck_obj.id %}">Add Card</a>
-    </div>
+        <div class="col-sm-1 p-2 mx-3">
+            <a class="btn btn-success" href="{% url 'edit_deck_name' deck_obj.id %}">Edit Deck</a>
+        </div>
+        <div class="col-sm-1 p-2 mx-3">
+            <a class="btn btn-primary align-right" href="{% url 'create_card_name' deck_obj.id %}">Add Card</a>
+        </div>
         {% if card_obj %}
-        <div class="col-sm-1 p-2">
+        <div class="col-sm-1 p-2 mx-3">
             <a class="btn btn-info" href="{% url 'edit_card_name' deck_obj.id card_obj.id %}">Edit Card</a>
         </div>
         {% endif %}
     {% endif %}
+    </div>
 </div>
 
 
     {% if card_obj %}
 
-    <div id="card-body" class="col-md-8 pull-left">
+    <div id="card-body" class="col-md-8">
         <div class="front border border-secondary card">
             <p>{{card_obj.front}}</p>
         </div>
