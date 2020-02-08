@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from rest_framework.authtoken.models import Token
 from PIL import Image
 
@@ -18,6 +19,7 @@ class Profile(models.Model):
     image = models.ImageField(default='default.png', upload_to='profile_pics', null=True, blank=True)
     about_user = models.TextField(max_length=600, blank=True)
 
+
     def __str__(self):
         return f'{self.user.username} Profile'
 
@@ -30,4 +32,6 @@ class Profile(models.Model):
     #         output_size = (300, 300)
     #         img.thumbnail(output_size)
     #         img.save(self.image.path)
+
+
 

@@ -4,13 +4,22 @@
 
 {% block content %}
 
+
+{% if edit_mode %}
+<div class="pb-3"><h2>Update your Deck</h2></div>
+{% else %}
 <div class="pb-3"><h2>Create your Deck</h2></div>
+{% endif %}
 <form method="POST">
     {% csrf_token %}
     {{form|crispy}}
 
     <div>
-        <button type="submit" class="btn btn-primary mr-3 mt-3">Submit Form</button>
+        {% if edit_mode %}
+        <button type="submit" class="btn btn-primary mr-3 mt-3">Update</button>
+        {% else %}
+        <button type="submit" class="btn btn-primary mr-3 mt-3">Create</button>
+        {% endif %}
         {% if edit_mode %}
         <a class="small btn btn-danger mr-3 mt-3" href="{% url 'delete_deck_name' deck_obj.id %}">Delete</a>
         {% endif %}

@@ -42,10 +42,13 @@
                 <div class="card-body">
                 <p class="card-text text-center">{{ card.front }}</p><hr>
                 <p class="card-text text-center">{{ card.back }}</p>
+            <div>
                 {% if user.is_authenticated and user == deck_obj.created_by or user.is_staff %}
                 <a class="btn btn-outline-primary btn-sm" href="{% url 'edit_card_name' deck_obj.id card.id %}">
                     Edit Card</a>
                 {% endif %}
+
+            </div>
                 </div>
             </div>
             {% endfor %}
